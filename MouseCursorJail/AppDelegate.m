@@ -17,14 +17,38 @@
 											   //NSLog(@"GlobalMonitor: %@", event);
                                                //
                                                NSPoint point = [NSEvent mouseLocation];
-                                               size_t height = CGDisplayPixelsHigh(kCGDirectMainDisplay);
-                                               float ymin = 15;
-                                               float ymax = height - 15;
+                                               
+                                               int width = CGDisplayPixelsWide(kCGDirectMainDisplay);
+                                               int height = CGDisplayPixelsHigh(kCGDirectMainDisplay);
+                                               
+                                               NSLog(@"width : %d", width);
+                                               NSLog(@"height : %d", height);
+                                               NSLog(@"Point X is here : %f", point.x);
+                                               NSLog(@"Point Y is here : %f", point.y);
+                                               
+                                               float xoffset = width * 0.45;
+                                               
+                                               float xmin = xoffset;
+                                               float xmax = width - xoffset;
+                                               
+                                               NSLog(@"xmax : %f", xmax);
+                                               NSLog(@"xmin : %f", xmin);
+                                               if (point.x < xmin) {
+                                                   CGDisplayMoveCursorToPoint(kCGDirectMainDisplay, CGPointMake(xmin, height - point.y));
+                                               }
+                                               if (point.x > xmax) {
+                                                   CGDisplayMoveCursorToPoint(kCGDirectMainDisplay, CGPointMake(xmax, height - point.y));
+                                               }
+                                               
+                                               float yoffset = height * 0.45;
+                                               
+                                               float ymin = yoffset;
+                                               float ymax = height - yoffset;
                                                if (point.y < ymin) {
-                                                   CGDisplayMoveCursorToPoint (kCGDirectMainDisplay, CGPointMake(point.x, ymax));
+                                                   CGDisplayMoveCursorToPoint(kCGDirectMainDisplay, CGPointMake(point.x, ymax));
                                                }
                                                if (point.y > ymax) {
-                                                   CGDisplayMoveCursorToPoint (kCGDirectMainDisplay, CGPointMake(point.x, ymin));
+                                                   CGDisplayMoveCursorToPoint(kCGDirectMainDisplay, CGPointMake(point.x, ymin));
                                                }
 										   }];
 }
